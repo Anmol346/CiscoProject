@@ -1,0 +1,24 @@
+pipeline{
+
+        agent any
+        stages{
+            stage('checkout'){
+                step{
+
+                }
+            }
+                stage('Terraform-init'){
+                    
+                    step{
+                        sh ('terraform init')
+                    }
+
+                }
+                stage('Terraform-plan'){
+                    step{
+                        sh ('terraform plan')
+                        
+                    }
+                }
+        }
+}
