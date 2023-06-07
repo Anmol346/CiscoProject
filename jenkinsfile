@@ -1,24 +1,23 @@
-pipeline{
+pipeline {
+    agent any
 
-        agent any
-        stages{
-            stage('checkout'){
-                step{
-
-                }
+    stages {
+        stage('Checkout') {
+            steps {
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Anmol346/CiscoProject.git']])
             }
-                stage('Terraform-init'){
-                    
-                    step{
-                        sh ('terraform init')
-                    }
-
-                }
-                stage('Terraform-plan'){
-                    step{
-                        sh ('terraform plan')
-                        
-                    }
-                }
         }
+    
+        stage ("terraform init") {
+            steps {
+                sh ("terraform init -reconfigure") 
+            }
+        }
+        
+        stage ("plan") {
+            steps {
+                sh ('terraform plan') 
+            }
+        }
+    }
 }
